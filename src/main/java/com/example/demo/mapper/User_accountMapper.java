@@ -29,7 +29,7 @@ public interface User_accountMapper {
 	@Delete("DELETE FROM user_account WHERE user_id=#{user_id}")
 	int deleteUser_account(@Param("user_id") String user_id);
 	
-	@Update("UPDATE user_account SET name=#{user_update.name} WHERE user_id=#{user_update.user_id}")
-	int updateUser_account(@Param("user_update") User_account user_update);
+	@Update("UPDATE user_account SET name=#{user_account.name} WHERE user_id=#{user_account.user_id}")
+	int updateUser_account(@Param("user_account") User_account user_update);
 	
 }

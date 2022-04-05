@@ -22,12 +22,12 @@ public class User_accountController {
 		this.mapper = mapper;
 	}
 	
-	@GetMapping(value ="/users/{user_id}")
+	@GetMapping(value = "/users/{user_id}")
 	public User_account getUser_account(@PathVariable("user_id") String user_id) {
 		return mapper.getUser_account(user_id);
 	}
 	
-	@GetMapping(value ="/users/all")
+	@GetMapping(value = "/users/all")
 	public List<User_account> getUser_accountList() {
 		return mapper.getUser_accountList();
 	}
@@ -38,9 +38,8 @@ public class User_accountController {
 	}
 		
 	@PatchMapping(value = "/users/{user_id}")
-	public User_account patchUser_account(@PathVariable("user_id") String user_id, @RequestBody User_account user_update) {
+	public void patchUser_account(@PathVariable("user_id") String user_id, @RequestBody User_account user_update) {
 		mapper.updateUser_account(user_update);
-		return mapper.getUser_account(user_id);
 	}
 	
 	@DeleteMapping("/users/{user_id}")

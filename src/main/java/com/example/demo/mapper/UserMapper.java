@@ -1,6 +1,5 @@
 package com.example.demo.mapper;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
@@ -21,11 +20,11 @@ public interface UserMapper {
 	@Select("SELECT * FROM user")
 	List<User> getUserList();
 	
-	@Insert("INSERT INTO User VALUES(#{id}, #{name}, #{access_date}, #{state})")
-	int insertUser(@Param("id") String id, @Param("name") String name, @Param("access_date") Date access_date, @Param("state") int state);
+	@Insert("INSERT INTO user(id, name, access_date, state)")
+	int insertUser(@Param("user") User user);
 	
-	@Update("UPDATE user SET name=#{name}, access_date=#{access_date}, state=#{state} WHERE id=#{id}")
-	int updateUser(@Param("id") String id, @Param("name") String name, @Param("access_date") Date access_date, @Param("state") int state);
+	@Update("UPDATE user SET name=#{user.name}, access_date=#{user.access_date}, state=#{user.state} WHERE id=#{user.id}")
+	int updateUser(@Param("user") User userUpdate);
 	
 	@Delete("DELETE FROM user WHERE id=#{id}")
 	int deleteUser(@Param("id") String id);
