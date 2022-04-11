@@ -1,12 +1,15 @@
 package com.example.demo.controller;
 
+//import java.sql.Date;
 import java.util.List;
 
+//import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
+//import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,13 +40,23 @@ public class User_accountController {
 		mapper.insertUser_account(user_insert);
 	}
 		
-	@PatchMapping(value = "/users/{user_id}")
-	public void patchUser_account(@PathVariable("user_id") String user_id, @RequestBody User_account user_update) {
-		mapper.updateUser_account(user_update);
-	}
+//	@PatchMapping(value = "/users/{user_id}")
+//	public void patchUser_account(@PathVariable("user_id") String user_id, @RequestBody User_account user_update) {
+//		mapper.updateUser_account(user_update);
+//	}
 	
 	@DeleteMapping("/users/{user_id}")
 	public void deleteUser_account(@PathVariable("user_id") String user_id) {
 		mapper.deleteUser_account(user_id);
 	}
+	
+	@PutMapping(value = "/users/{user_id}")
+		public void putUser_account(@PathVariable("user_id") String user_id, @RequestBody User_account user_update) {
+		mapper.updateUser_account(user_update);
+	}
+	
+//	@PutMapping(value = "/users/{user_id}")
+//	public void putUser_account(@RequestBody("id_num") int id_num, @PathVariable("user_id") String user_id, @Param("name") String name, @Param("password") String password, @Param("phone") String phone, @Param("nickname") String nickname, @Param("profile_img") String profile_img, @Param("mail") String mail, @Param("bank") String bank, @Param("account_num") String account_num, @Param("dntry_date") Date entry_Date) {
+//		mapper.updateUser_account(id_num, user_id, name, password, phone, nickname, profile_img, mail, bank, account_num, entry_date);
+//	}
 }

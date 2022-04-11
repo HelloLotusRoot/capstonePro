@@ -17,7 +17,7 @@ private Bus_stopMapper mapper;
 		this.mapper = mapper;
 	}
 	
-	@GetMapping(value = "/markers/bus")
+	@GetMapping(value = "/markers/bus_stop")
 	public List<Bus_stop> getBus_stopList() {
 		return mapper.getBus_stopList();
 	}
