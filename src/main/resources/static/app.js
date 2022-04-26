@@ -19,7 +19,9 @@ function connect() {
         setConnected(true);
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/markers/users', function (greeting) {
-            showGreeting(JSON.parse(greeting.body).content);
+			console.log(greeting);
+			console.log(asdqwfasgasgqsbq);
+           // showGreeting(JSON.parse(greeting.body).content);
         });
     });
 }
@@ -33,7 +35,18 @@ function disconnect() {
 }
 
 function sendName() {
-    stompClient.send("/app/markers/users", {}, JSON.stringify({'name': $("#name").val()}));
+    //stompClient.send("/app/markers/users", {}, JSON.stringify({'name': $("#name").val()}));
+    stompClient.send(
+    '/app/markers/users',
+    {},
+    JSON.stringify({
+        userid: '1234',
+        img_url: ' ',
+        lat: 1.4,
+        lng: 1.5,
+        user_id: 'srasddsf',
+    })
+);
 }
 
 function showGreeting(message) {

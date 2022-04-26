@@ -25,11 +25,19 @@ public class Marker_userController {
 		this.mapper = mapper;
 	}
 	
-	@MessageMapping(value = "/markers/users")
+/*	@MessageMapping(value = "/markers/users")
 	@SendTo(value = "/topic/markers/users")
 	public String getMarker_userList(String marker) {
 		return marker;
 		//return mapper.getMarker_userList();
+	}*/
+	
+	@MessageMapping(value = "/markers/users")
+	@SendTo(value = "/topic/markers/users")
+	public void postMarker_user(Marker_user marker_userInsert) {
+		//mapper.insertMarker_user(marker_userInsert);
+		System.out.println(marker_userInsert.getUser_id());
+	//	return mapper.getMarker_userList();
 	}
 			
 /*	@GetMapping(value = "/markers/users")
