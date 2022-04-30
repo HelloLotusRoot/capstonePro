@@ -40,7 +40,7 @@ public class ShuttleController {
 	}
 	
 	@GetMapping(value = "/schedule/shuttlebus")
-	public String getShuttleSchedule() {
+	public JsonNode getShuttleSchedule() {
 		WebClient client = WebClient.builder()
 				.baseUrl("https://apis-navi.kakaomobility.com")
 				.build();
@@ -64,13 +64,13 @@ public class ShuttleController {
 			String waypointsAsString = objectMapper.writeValueAsString(waypoints);
 			
 			String body = "{\"origin\": " + originAsString + ", \"destination\": " + destinationAsString + ", \"waypoints\": " + waypointsAsString + "}";			
-			String response = client.post()
+			JsonNode response = client.post()
 					.uri("v1/waypoints/directions")
 					.contentType(MediaType.APPLICATION_JSON)
 					.header("Authorization", "KakaoAK c9762f0c354a8d98ee588edb89b18572")
 					.body(BodyInserters.fromValue(body))
 					.retrieve()
-					.bodyToMono(String.class)
+					.bodyToMono(JsonNode.class)
 				    .block();
 			
 			System.out.print(response);
@@ -81,7 +81,7 @@ public class ShuttleController {
 			e.printStackTrace();
 		}
 	
-		return "api 호출 실패";
+		return null ;
 	}
 	
 //  TEST
