@@ -1,5 +1,9 @@
 package com.example.demo.controller;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.http.HttpEntity;
@@ -20,6 +24,9 @@ import com.example.demo.model.Shuttle_station;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 @RestController
 public class ShuttleController {
@@ -30,7 +37,7 @@ public class ShuttleController {
 	private String shuttleLocation = "129.07719215990883,35.26914021080837";
 	
 	
-	public ShuttleController(ShuttleMapper mapper) {
+	public ShuttleController(ShuttleMapper mapper){
 		this.mapper = mapper;
 	}
 	
@@ -40,7 +47,7 @@ public class ShuttleController {
 	}
 	
 	@GetMapping(value = "/schedule/shuttlebus")
-	public JsonNode getShuttleSchedule() {
+	public JsonNode getShuttleSchedule() throws IOException {
 		WebClient client = WebClient.builder()
 				.baseUrl("https://apis-navi.kakaomobility.com")
 				.build();
@@ -75,6 +82,17 @@ public class ShuttleController {
 			
 			System.out.print(response);
 			
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			
+			String jsonString = response.toString(); // jsonNode -> json string
+			String prettyJsonString = response.toPrettyString(); // 들여쓰기 등 적용
+			
+			String filepath = "C:\\Users\\82103\\eclipse-workspace\\capstone\\src\\main\\java\\com\\example\\demo\\shuttle\\lecture.json";
+			
+			FileWriter fw = new FileWriter(filepath, false);
+			
+			fw.write(prettyJsonString);
+			fw.close();
 			return response;
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
