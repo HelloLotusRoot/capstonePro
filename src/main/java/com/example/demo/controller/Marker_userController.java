@@ -6,7 +6,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
+//import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,21 +25,13 @@ public class Marker_userController {
 		this.mapper = mapper;
 	}
 	
-/*	@MessageMapping(value = "/markers/users")
-	@SendTo(value = "/topic/markers/users")
-	public String getMarker_userList(String marker) {
-		return marker;
-		//return mapper.getMarker_userList();
-	}*/
-	
 	@MessageMapping(value = "/markers/users")
 	@SendTo(value = "/topic/markers/users")
-	public List<Marker_user> postMarker_user(Marker_user marker_userInsert) {
-		mapper.insertMarker_user(marker_userInsert);
+	public List<Marker_user> getMarker_user(Marker_user marker_userInsert) {
 		return mapper.getMarker_userList();
 	}
 			
-/*	@GetMapping(value = "/markers/users")
+	@GetMapping(value = "/markers/users")
 	public List<Marker_user> getMarker_userList() {
 		return mapper.getMarker_userList();
 	}
@@ -63,5 +55,5 @@ public class Marker_userController {
 	public void putUser(@PathVariable("id") String id, @RequestBody Marker_user marker_userUpdate) {
 	mapper.updateMarker_user(marker_userUpdate);
 	}
-	*/
+	
 }
