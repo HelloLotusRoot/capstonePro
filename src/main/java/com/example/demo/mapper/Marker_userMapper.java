@@ -16,6 +16,7 @@ public interface Marker_userMapper {
 
 	@Select("SELECT * FROM marker_user")
 	List<Marker_user> getMarker_userList();
+	//int@Param("userid") String userid 아이디로 검색해서 마커가져오기
 	
 	@Insert("INSERT INTO marker_user(userid, img_url, lat, lng, user_id) VALUES(#{marker_user.userid}, #{marker_user.img_url}, #{marker_user.lat}, #{marker_user.lng}, #{marker_user.user_id})")
 	int insertMarker_user(@Param("marker_user") Marker_user marker_userInsert);

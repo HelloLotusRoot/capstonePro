@@ -10,6 +10,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.MultipartBodyBuilder;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
 import com.example.demo.mapper.ShuttleMapper;
+import com.example.demo.model.Marker_user;
 import com.example.demo.model.Shuttle;
 import com.example.demo.model.Shuttle_station;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -41,10 +44,16 @@ public class ShuttleController {
 		this.mapper = mapper;
 	}
 	
-	@GetMapping(value = "/markers/shuttlebus")
-	public List<Shuttle> getShuttle() {
+	@MessageMapping(value = "/markers/shuttlebus")
+	@SendTo(value = "/topic/markers/shuttlebus")
+	public List<Shuttle> getShuttle(Shuttle shuttle) {
 		return mapper.getShuttleList();
-	}
+	} //들어온값그대로내보내기 dao참고
+	
+//	@GetMapping(value = "/markers/shuttlebus")
+//	public List<Shuttle> getShuttle() {
+//		return mapper.getShuttleList();
+//	}
 	
 	@GetMapping(value = "/schedule/shuttlebus")
 	public JsonNode getShuttleSchedule() throws IOException {
@@ -87,7 +96,7 @@ public class ShuttleController {
 			String jsonString = response.toString(); // jsonNode -> json string
 			String prettyJsonString = response.toPrettyString(); // 들여쓰기 등 적용
 			
-			String filepath = "C:\\Users\\82103\\eclipse-workspace\\capstone\\src\\main\\java\\com\\example\\demo\\shuttle\\lecture.json";
+			String filepath = "D:\\eclipse-workspace\\project2\\src\\main\\resources\\json\\lecture.json";
 			
 			FileWriter fw = new FileWriter(filepath, false);
 			

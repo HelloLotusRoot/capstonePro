@@ -28,8 +28,9 @@ public class Marker_userController {
 	@MessageMapping(value = "/markers/users")
 	@SendTo(value = "/topic/markers/users")
 	public List<Marker_user> getMarker_user(Marker_user marker_userInsert) {
+		mapper.insertMarker_user(marker_userInsert);
 		return mapper.getMarker_userList();
-	}
+	} //들어온값그대로내보내기 dao참고
 			
 	@GetMapping(value = "/markers/users")
 	public List<Marker_user> getMarker_userList() {
