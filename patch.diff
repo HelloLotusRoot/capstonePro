@@ -1,0 +1,190 @@
+From 8c133896d6a82d28d9cc412c075c6eb03f4c26df Mon Sep 17 00:00:00 2001
+From: routus <rbfla8426@gmail.com>
+Date: Sat, 30 Apr 2022 16:54:01 +0900
+Subject: [PATCH] =?UTF-8?q?Revert=20"app.js=20index.html=20=EC=82=AD?=
+ =?UTF-8?q?=EC=A0=9C"?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This reverts commit c0635a8fae580efc4e9d0b4f05b235f68378556d.
+---
+ src/main/resources/static/app.js     | 80 ++++++++++++++++++++++++++++
+ src/main/resources/static/index.html | 78 +++++++++++++++++++++++++++
+ 2 files changed, 158 insertions(+)
+ create mode 100644 src/main/resources/static/app.js
+ create mode 100644 src/main/resources/static/index.html
+
+diff --git a/src/main/resources/static/app.js b/src/main/resources/static/app.js
+new file mode 100644
+index 0000000..8edbd5f
+--- /dev/null
++++ b/src/main/resources/static/app.js
+@@ -0,0 +1,80 @@
++var stompClient = null;
++
++function setConnected(connected) {
++    $('#connect').prop('disabled', connected);
++    $('#disconnect').prop('disabled', !connected);
++    if (connected) {
++        $('#conversation').show();
++    } else {
++        $('#conversation').hide();
++    }
++    $('#greetings').html('');
++}
++
++async function connect() {
++    var socket = new SockJS('/webSocket');
++    stompClient = Stomp.over(socket);
++    stompClient.connect({}, function (frame) {
++        setConnected(true);
++        console.log('Connected: ' + frame);
++        stompClient.subscribe('/topic/markers/users', function (greeting) {
++            console.log(greeting);
++            console.log(asdqwfasgasgqsbq);
++            // showGreeting(JSON.parse(greeting.body).content);
++        });
++    });
++
++    const shuttleSchedule = await fetch(
++        `http://localhost:8080/schedule/shuttlebus`,
++        {
++            method: 'GET',
++            headers: {
++                'Content-Type': 'application/json',
++            },
++        }
++    );
++    console.log('------api response------');
++    console.log(shuttleSchedule);
++}
++
++function disconnect() {
++    if (stompClient !== null) {
++        stompClient.disconnect();
++    }
++    setConnected(false);
++    console.log('Disconnected');
++}
++
++function sendName() {
++    //stompClient.send("/app/markers/users", {}, JSON.stringify({'name': $("#name").val()}));
++    stompClient.send(
++        '/app/markers/users',
++        {},
++        JSON.stringify({
++            userid: '1234',
++            img_url: ' ',
++            lat: 1.4,
++            lng: 1.5,
++            user_id: 'srasddsf',
++        })
++    );
++}
++
++function showGreeting(message) {
++    $('#greetings').append('<tr><td>' + message + '</td></tr>');
++}
++
++$(function () {
++    $('form').on('submit', function (e) {
++        e.preventDefault();
++    });
++    $('#connect').click(function () {
++        connect();
++    });
++    $('#disconnect').click(function () {
++        disconnect();
++    });
++    $('#send').click(function () {
++        sendName();
++    });
++});
+diff --git a/src/main/resources/static/index.html b/src/main/resources/static/index.html
+new file mode 100644
+index 0000000..741edee
+--- /dev/null
++++ b/src/main/resources/static/index.html
+@@ -0,0 +1,78 @@
++<!DOCTYPE html>
++<html>
++    <head>
++        <title>Hello WebSocket</title>
++        <link
++            href="/webjars/bootstrap/css/bootstrap.min.css"
++            rel="stylesheet"
++        />
++        <link href="/main.css" rel="stylesheet" />
++        <script src="/webjars/jquery/jquery.min.js"></script>
++        <script src="/webjars/sockjs-client/sockjs.min.js"></script>
++        <script src="/webjars/stomp-websocket/stomp.min.js"></script>
++        <script src="/app.js"></script>
++    </head>
++    <body>
++        <noscript
++            ><h2 style="color: #ff0000">
++                Seems your browser doesn't support Javascript! Websocket relies
++                on Javascript being enabled. Please enable Javascript and reload
++                this page!
++            </h2></noscript
++        >
++        <div id="main-content" class="container">
++            <div class="row">
++                <div class="col-md-6">
++                    <form class="form-inline">
++                        <div class="form-group">
++                            <label for="connect">WebSocket connection:</label>
++                            <button
++                                id="connect"
++                                class="btn btn-default"
++                                type="submit"
++                            >
++                                Connect
++                            </button>
++                            <button
++                                id="disconnect"
++                                class="btn btn-default"
++                                type="submit"
++                                disabled="disabled"
++                            >
++                                Disconnect
++                            </button>
++                        </div>
++                    </form>
++                </div>
++                <div class="col-md-6">
++                    <form class="form-inline">
++                        <div class="form-group">
++                            <label for="name">What is your name?</label>
++                            <input
++                                type="text"
++                                id="name"
++                                class="form-control"
++                                placeholder="Your name here..."
++                            />
++                        </div>
++                        <button id="send" class="btn btn-default" type="submit">
++                            Send
++                        </button>
++                    </form>
++                </div>
++            </div>
++            <div class="row">
++                <div class="col-md-12">
++                    <table id="conversation" class="table table-striped">
++                        <thead>
++                            <tr>
++                                <th>Greetings</th>
++                            </tr>
++                        </thead>
++                        <tbody id="greetings"></tbody>
++                    </table>
++                </div>
++            </div>
++        </div>
++    </body>
++</html>
+-- 
+2.35.0.windows.1
+
