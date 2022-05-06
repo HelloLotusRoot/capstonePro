@@ -10,6 +10,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.MultipartBodyBuilder;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +41,12 @@ public class ShuttleController {
 	
 	public ShuttleController(ShuttleMapper mapper){
 		this.mapper = mapper;
+	}
+	
+	@MessageMapping(value = "/markers/shuttlebus")
+	@SendTo(value = "/topic/markers/shuttlebus")
+	public Shuttle getShuttle(Shuttle shuttle) {
+		return shuttle;
 	}
 	
 	@GetMapping(value = "/markers/shuttlebus")

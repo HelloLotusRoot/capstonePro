@@ -25,10 +25,17 @@ public class Marker_userController {
 		this.mapper = mapper;
 	}
 	
+//	@MessageMapping(value = "/markers/users")
+//	@SendTo(value = "/topic/markers/users")
+//	public List<Marker_user> getMarker_user(Marker_user marker_userInsert) {
+//		return mapper.getMarker_userList();
+//	}
+	
 	@MessageMapping(value = "/markers/users")
 	@SendTo(value = "/topic/markers/users")
-	public List<Marker_user> getMarker_user(Marker_user marker_userInsert) {
-		return mapper.getMarker_userList();
+	public Marker_user getMarker_user(Marker_user marker_userInsert) {
+		mapper.insertMarker_user(marker_userInsert);
+		return marker_userInsert;
 	}
 			
 	@GetMapping(value = "/markers/users")
