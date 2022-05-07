@@ -31,15 +31,15 @@ public class Marker_userController {
 //		return mapper.getMarker_userList();
 //	}
 	
-	@MessageMapping(value = "/marker/user") // /marker/createuser
-	@SendTo(value = "/topic/marker/user") // /topic/marker/createuser
+	@MessageMapping(value = "/marker/createuser") 
+	@SendTo(value = "/topic/marker/createuser") 
 	public Marker_user getMarker_user(Marker_user marker_userInsert) {
 		mapper.insertMarker_user(marker_userInsert);
 		return marker_userInsert;
 	}
 	//test
-	@MessageMapping(value = "/marker/user/{userid}") // /marker/deleteuser/{userid}
-	@SendTo(value = "/topic/marker/user") // /topic/marker/deleteuser
+	@MessageMapping(value = "/marker/deleteuser/{userid}") 
+	@SendTo(value = "/topic/marker/deleteuser") 
 	public Marker_user deleteMarker_user(@PathVariable("userid") String userid) {
 		Marker_user marker_userDelete = mapper.getMarker_user(userid);
 		mapper.deleteMarker_user(userid);
