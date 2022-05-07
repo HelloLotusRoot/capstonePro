@@ -34,22 +34,26 @@ public class UserController {
 	}
 	
 	@PostMapping(value = "/user")
-	public void postUser(@RequestBody User userInsert) {
+	public User postUser(@RequestBody User userInsert) {
 		mapper.insertUser(userInsert);
+		return userInsert;
 	}
 	
-//	//@PatchMapping(value = "/user/{id}")
+//	@PatchMapping(value = "/user/{id}")
 //	public void patchUser(@PathVariable("id") String id, @RequestBody User userUpdate) {
 //		mapper.updateUser(userUpdate);
 //	}
 	
 	@DeleteMapping(value = "/user/{id}")
-	public void deleteUser(@PathVariable("id") String id) {
+	public User deleteUser(@PathVariable("id") String id) {
+		User userDelete = mapper.getUser(id);
 		mapper.deleteUser(id);
+		return userDelete;
 	}
 	
 	@PutMapping(value = "/user")
-	public void putUser(@PathVariable("id") String id, @RequestBody User userUpdate) {
-	mapper.updateUser(userUpdate);
+	public User putUser(@PathVariable("id") String id, @RequestBody User userUpdate) {
+		mapper.updateUser(userUpdate);
+		return userUpdate;
 	}
 }

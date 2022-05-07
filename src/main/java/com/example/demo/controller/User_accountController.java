@@ -36,8 +36,9 @@ public class User_accountController {
 	}
 	
 	@PostMapping(value = "/users/")
-	public void postUser_account(@RequestBody User_account user_insert) {
-		mapper.insertUser_account(user_insert);
+	public User_account postUser_account(@RequestBody User_account user_accountInsert) {
+		mapper.insertUser_account(user_accountInsert);
+		return user_accountInsert;
 	}
 		
 //	@PatchMapping(value = "/users/{user_id}")
@@ -46,13 +47,16 @@ public class User_accountController {
 //	}
 	
 	@DeleteMapping("/users/{user_id}")
-	public void deleteUser_account(@PathVariable("user_id") String user_id) {
+	public User_account deleteUser_account(@PathVariable("user_id") String user_id) {
+		User_account user_accountDelete = mapper.getUser_account(user_id);
 		mapper.deleteUser_account(user_id);
+		return user_accountDelete;
 	}
 	
 	@PutMapping(value = "/users/{user_id}")
-		public void putUser_account(@PathVariable("user_id") String user_id, @RequestBody User_account user_update) {
-		mapper.updateUser_account(user_update);
+	public User_account putUser_account(@PathVariable("user_id") String user_id, @RequestBody User_account user_accountUpdate) {
+		mapper.updateUser_account(user_accountUpdate);
+		return user_accountUpdate;
 	}
 	
 //	@PutMapping(value = "/users/{user_id}")
