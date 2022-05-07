@@ -14,6 +14,9 @@ import com.example.demo.model.Marker_user;
 @Mapper
 public interface Marker_userMapper {
 
+	@Select("SELECT * FROM marker_user WHERE userid#{userid}")
+	Marker_user getMarker_user(@Param("userid") String userid);
+	
 	@Select("SELECT * FROM marker_user")
 	List<Marker_user> getMarker_userList();
 	
