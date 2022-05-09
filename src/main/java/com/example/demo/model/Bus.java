@@ -6,7 +6,6 @@ public class Bus {
 	private String busstop_name;
 	private int bus_num;
 	
-	
 	public Bus(String busstop_id, String busstop_name, int bus_num) {
 		super();
 		this.busstop_id = busstop_id;
