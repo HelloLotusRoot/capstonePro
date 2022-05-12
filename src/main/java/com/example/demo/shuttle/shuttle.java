@@ -12,7 +12,7 @@ import org.json.simple.parser.ParseException;
 import org.yaml.snakeyaml.parser.ParserException;
 
 import com.google.gson.Gson;
-
+/*
 public class shuttle {
 	public static void main(String[] args) throws FileNotFoundException {
 		Reader reader = new FileReader("C:\\Users\\82103\\eclipse-workspace\\capstone\\src\\main\\java\\com\\example\\demo\\shuttle\\lecture.json");
@@ -52,4 +52,4 @@ public class shuttle {
 		}
 		
 	}
-}
+}*/

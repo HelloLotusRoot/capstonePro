@@ -8,7 +8,7 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-
+/*
 @Component
 public class WebSocketComponent extends TextWebSocketHandler {
 
@@ -34,4 +34,4 @@ public class WebSocketComponent extends TextWebSocketHandler {
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         sessionMap.remove(session.getId());
     }
-}
+}*/

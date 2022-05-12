@@ -1,38 +1,97 @@
 package com.example.demo.controller;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+//import java.io.BufferedWriter;
+//import java.io.File;
+//import java.io.FileWriter;
+//import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.client.MultipartBodyBuilder;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import javax.annotation.PostConstruct;
+
+//import org.springframework.http.HttpEntity;
+//import org.springframework.http.HttpHeaders;
+//import org.springframework.http.MediaType;
+//import org.springframework.http.client.MultipartBodyBuilder;
+//import org.springframework.messaging.handler.annotation.MessageMapping;
+//import org.springframework.messaging.handler.annotation.SendTo;
+//import org.springframework.util.LinkedMultiValueMap;
+//import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.PutMapping;
+//import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.BodyInserters;
-import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
+//import org.springframework.web.reactive.function.BodyInserters;
+//import org.springframework.web.reactive.function.client.WebClient;
+//import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
-import com.example.demo.mapper.ShuttleMapper;
+//import com.example.demo.mapper.ShuttleMapper;
 import com.example.demo.model.Shuttle;
-import com.example.demo.model.Shuttle_station;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+//import com.example.demo.model.Shuttle_station;
+//import com.example.demo.model.User_account;
+//import com.fasterxml.jackson.core.JsonProcessingException;
+//import com.fasterxml.jackson.databind.JsonNode;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.google.gson.Gson;
+//import com.google.gson.GsonBuilder;
+//import com.google.gson.JsonObject;
 
 @RestController
 public class ShuttleController {
-
+	
+	private Map<String, Shuttle> shuttleMap;
+	
+	@PostConstruct
+	public void init() { // 값 초기화
+		shuttleMap = new HashMap<String, Shuttle>();
+		shuttleMap.put("1", new Shuttle("1", "부산12아1212", "129.07719215990883", "35.26914021080837"));
+		shuttleMap.put("2", new Shuttle("2", "부산23바2323", "129.07719215990883", "35.26914021080837"));
+		shuttleMap.put("3", new Shuttle("3", "부산34사3434", "129.07719215990883", "35.26914021080837"));
+		shuttleMap.put("4", new Shuttle("4", "부산45자4545", "129.07719215990883", "35.26914021080837"));
+		shuttleMap.put("5", new Shuttle("5", "부산56아5656", "129.07719215990883", "35.26914021080837"));
+		shuttleMap.put("6", new Shuttle("6", "부산67자6767", "129.07719215990883", "35.26914021080837"));
+	}
+	
+	@GetMapping(value = "/markers/shuttlebus/all")
+	public List<Shuttle> getShuttle() {
+		return new ArrayList<Shuttle>(shuttleMap.values());
+	}
+	
+	@GetMapping(value = "/markers/shuttlebus/{busid}")
+	public Shuttle getUser_account(@PathVariable("busid") String busid) {
+		return shuttleMap.get(busid);
+	}
+	
+	@PostMapping(value = "/markers/shuttlebus/")
+	public Shuttle postShuttle(@PathVariable("busid") String busid, @RequestParam("carnumber") String carnumber, @RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude) {
+		Shuttle shuttlePost = new Shuttle(busid, carnumber, latitude, longitude);
+		shuttleMap.put(busid, shuttlePost);
+		return shuttlePost;
+	}
+	
+/*	@PutMapping(value = "/markers/shuttlebus/{busid}")
+	public Shuttle putShuttle(@PathVariable("busid") String busid, @RequestParam("carnumber") String carnumber, @RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude) {
+		Shuttle shuttlePut = shuttleMap.get(busid);
+		shuttlePut.setCarnumber(carnumber);
+		shuttlePut.setLatitude(latitude);
+		shuttlePut.setLongitude(longitude);
+		return shuttleMap.get(busid);
+	}
+	
+	@DeleteMapping(value = "/markers/shuttlebus/{busid}")
+	public Shuttle deleteShuttle(@PathVariable("busid") String busid) {
+		Shuttle shuttleDelete = shuttleMap.get(busid);
+		shuttleMap.remove(busid);
+		return shuttleDelete;
+	}*/
+	
+	
+	/*
 	private ShuttleMapper mapper;
 	
 	// 5초 단위로 업데이트 될 셔틀버스의 현위치
@@ -121,5 +180,5 @@ public class ShuttleController {
 //				.retrieve()
 //				.bodyToMono(JsonNode.class)
 //			      .block();
-//	}
+//	} */
 }

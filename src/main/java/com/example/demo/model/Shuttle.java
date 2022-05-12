@@ -2,34 +2,49 @@ package com.example.demo.model;
 
 public class Shuttle {
 
-	private int idshuttle;
-	private String bussstop_name;
-	private String coordinate;
+	private String busid;
+	private String carnumber;
+	private String latitude;
+	private String longitude;
 	
-	public Shuttle(int idshuttle, String bussstop_name, String coordinate) {
+	public Shuttle(String busid, String carnumber, String latitude, String longitude) {
 		super();
-		this.idshuttle = idshuttle;
-		this.bussstop_name = bussstop_name;
-		this.coordinate = coordinate;
+		this.busid = busid;
+		this.carnumber = carnumber;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
-	
-	public int getIdshuttle() {
-		return idshuttle;
+
+	public String getBusid() {
+		return busid;
 	}
-	public void setIdshuttle(int idshuttle) {
-		this.idshuttle = idshuttle;
+
+	public void setBusid(String busid) {
+		this.busid = busid;
 	}
-	public String getBussstop_name() {
-		return bussstop_name;
+
+	public String getCarnumber() {
+		return carnumber;
 	}
-	public void setBussstop_name(String bussstop_name) {
-		this.bussstop_name = bussstop_name;
+
+	public void setCarnumber(String carnumber) {
+		this.carnumber = carnumber;
 	}
-	public String getCoordinate() {
-		return coordinate;
+
+	public String getLatitude() {
+		return latitude;
 	}
-	public void setCoordinate(String coordinate) {
-		this.coordinate = coordinate;
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
 	}
 	
 }

@@ -33,7 +33,7 @@ public class Marker_userController {
 	
 	@MessageMapping(value = "/marker/createuser") 
 	@SendTo(value = "/topic/marker/createuser") 
-	public Marker_user getMarker_user(Marker_user marker_userInsert) {
+	public Marker_user postMarker_user(Marker_user marker_userInsert) {  //@DestinationVariable
 		mapper.insertMarker_user(marker_userInsert);
 		return marker_userInsert;
 	}
