@@ -1,5 +1,5 @@
 package com.example.demo.component;
-
+/*
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -8,7 +8,7 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-/*
+
 @Component
 public class WebSocketComponent extends TextWebSocketHandler {
 

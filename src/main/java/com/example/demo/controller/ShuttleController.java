@@ -22,18 +22,22 @@ import javax.annotation.PostConstruct;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.PutMapping;
-//import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 //import org.springframework.web.reactive.function.BodyInserters;
 //import org.springframework.web.reactive.function.client.WebClient;
 //import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
+import org.springframework.web.server.ResponseStatusException;
 
-//import com.example.demo.mapper.ShuttleMapper;
+import com.example.demo.exception.CustomException;
+import com.example.demo.exception.ErrorCode;
 import com.example.demo.model.Shuttle;
-//import com.example.demo.model.Shuttle_station;
-//import com.example.demo.model.User_account;
 //import com.fasterxml.jackson.core.JsonProcessingException;
 //import com.fasterxml.jackson.databind.JsonNode;
 //import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,12 +53,12 @@ public class ShuttleController {
 	@PostConstruct
 	public void init() { // 값 초기화
 		shuttleMap = new HashMap<String, Shuttle>();
-		shuttleMap.put("1", new Shuttle("1", "부산12아1212", "129.07719215990883", "35.26914021080837"));
-		shuttleMap.put("2", new Shuttle("2", "부산23바2323", "129.07719215990883", "35.26914021080837"));
-		shuttleMap.put("3", new Shuttle("3", "부산34사3434", "129.07719215990883", "35.26914021080837"));
-		shuttleMap.put("4", new Shuttle("4", "부산45자4545", "129.07719215990883", "35.26914021080837"));
-		shuttleMap.put("5", new Shuttle("5", "부산56아5656", "129.07719215990883", "35.26914021080837"));
-		shuttleMap.put("6", new Shuttle("6", "부산67자6767", "129.07719215990883", "35.26914021080837"));
+		shuttleMap.put("1", new Shuttle("1", "129.07719215990883", "35.26914021080837"));
+		shuttleMap.put("2", new Shuttle("2", "129.07719215990883", "35.26914021080837"));
+		shuttleMap.put("3", new Shuttle("3", "129.07719215990883", "35.26914021080837"));
+		shuttleMap.put("4", new Shuttle("4", "129.07719215990883", "35.26914021080837"));
+		shuttleMap.put("5", new Shuttle("5", "129.07719215990883", "35.26914021080837"));
+		shuttleMap.put("6", new Shuttle("6", "129.07719215990883", "35.26914021080837"));
 	}
 	
 	@GetMapping(value = "/markers/shuttlebus/all")

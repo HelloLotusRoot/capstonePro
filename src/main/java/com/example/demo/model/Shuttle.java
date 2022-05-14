@@ -3,14 +3,12 @@ package com.example.demo.model;
 public class Shuttle {
 
 	private String busid;
-	private String carnumber;
 	private String latitude;
 	private String longitude;
 	
-	public Shuttle(String busid, String carnumber, String latitude, String longitude) {
+	public Shuttle(String busid, String latitude, String longitude) {
 		super();
 		this.busid = busid;
-		this.carnumber = carnumber;
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
@@ -21,14 +19,6 @@ public class Shuttle {
 
 	public void setBusid(String busid) {
 		this.busid = busid;
-	}
-
-	public String getCarnumber() {
-		return carnumber;
-	}
-
-	public void setCarnumber(String carnumber) {
-		this.carnumber = carnumber;
 	}
 
 	public String getLatitude() {
@@ -46,5 +36,5 @@ public class Shuttle {
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
-	
+		
 }
