@@ -70,29 +70,29 @@ public class ShuttleController {
 	public Shuttle getUser_account(@PathVariable("busid") String busid) {
 		return shuttleMap.get(busid);
 	}
-	
-	@PostMapping(value = "/markers/shuttlebus/")
-	public Shuttle postShuttle(@PathVariable("busid") String busid, @RequestParam("carnumber") String carnumber, @RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude) {
-		Shuttle shuttlePost = new Shuttle(busid, carnumber, latitude, longitude);
-		shuttleMap.put(busid, shuttlePost);
-		return shuttlePost;
-	}
-	
-/*	@PutMapping(value = "/markers/shuttlebus/{busid}")
-	public Shuttle putShuttle(@PathVariable("busid") String busid, @RequestParam("carnumber") String carnumber, @RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude) {
-		Shuttle shuttlePut = shuttleMap.get(busid);
-		shuttlePut.setCarnumber(carnumber);
-		shuttlePut.setLatitude(latitude);
-		shuttlePut.setLongitude(longitude);
+	// @RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude
+	@PostMapping(value = "/markers/shuttlebus/{busid}")
+	public Shuttle postShuttle(@PathVariable("busid") String busid, @RequestBody Shuttle shuttleInsert) {
+		shuttleMap.put(busid, shuttleInsert);
 		return shuttleMap.get(busid);
 	}
+
+	@PutMapping(value = "/markers/shuttlebus/{busid}")
+	public Shuttle putShuttle(@PathVariable("busid") String busid, @RequestBody Shuttle shuttleUpdate) {
+		shuttleMap.replace(busid, shuttleUpdate);
+		return shuttleMap.get(busid);
+	}
+	
+	//	shuttleMap.replace(busid, shuttleUpdate);
+	//  return shuttleMap.get(busid);
+	//	throw new CustomException(ErrorCode.DATA_NOT_FOUND);
 	
 	@DeleteMapping(value = "/markers/shuttlebus/{busid}")
 	public Shuttle deleteShuttle(@PathVariable("busid") String busid) {
 		Shuttle shuttleDelete = shuttleMap.get(busid);
 		shuttleMap.remove(busid);
 		return shuttleDelete;
-	}*/
+	}
 	
 	
 	/*
