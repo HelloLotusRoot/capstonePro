@@ -6,6 +6,7 @@ package com.example.demo.controller;
 //import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -71,21 +72,29 @@ public class ShuttleController {
 		return shuttleMap.get(busid);
 	}
 	// @RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude
-	@PostMapping(value = "/markers/shuttlebus/{busid}")
-	public Shuttle postShuttle(@PathVariable("busid") String busid, @RequestBody Shuttle shuttleInsert) {
-		shuttleMap.put(busid, shuttleInsert);
-		return shuttleMap.get(busid);
+	@PostMapping(value = "/markers/shuttlebus/")
+	public Shuttle postShuttle(@RequestBody Shuttle shuttleInsert) {
+		String busid = shuttleInsert.getBusid();
+		if(shuttleMap.containsKey(busid)) {
+			putShuttle(busid, shuttleInsert);
+			//shuttleMap.put(busid, shuttleInsert);
+			//return shuttleMap.get(busid);
+		}
+		else 
+			//throw new CustomException(ErrorCode.DATA_NOT_FOUND); 
+			shuttleMap.put(busid, shuttleInsert);
+			return shuttleMap.get(busid);
 	}
 
 	@PutMapping(value = "/markers/shuttlebus/{busid}")
 	public Shuttle putShuttle(@PathVariable("busid") String busid, @RequestBody Shuttle shuttleUpdate) {
-		shuttleMap.replace(busid, shuttleUpdate);
-		return shuttleMap.get(busid);
+			if(shuttleMap.containsKey(busid)) {
+				shuttleMap.replace(busid, shuttleUpdate);
+				return shuttleMap.get(busid);
+			}
+			else 
+				throw new CustomException(ErrorCode.DATA_NOT_FOUND); 
 	}
-	
-	//	shuttleMap.replace(busid, shuttleUpdate);
-	//  return shuttleMap.get(busid);
-	//	throw new CustomException(ErrorCode.DATA_NOT_FOUND);
 	
 	@DeleteMapping(value = "/markers/shuttlebus/{busid}")
 	public Shuttle deleteShuttle(@PathVariable("busid") String busid) {
