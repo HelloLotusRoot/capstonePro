@@ -72,7 +72,7 @@ public class ShuttleController {
 		return shuttleMap.get(busid);
 	}
 	// @RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude
-	@PostMapping(value = "/markers/shuttlebus/")
+	@PostMapping(value = "/markers/shuttlebus")
 	public Shuttle postShuttle(@RequestBody Shuttle shuttleInsert) {
 		String busid = shuttleInsert.getBusid();
 		if(shuttleMap.containsKey(busid)) {
