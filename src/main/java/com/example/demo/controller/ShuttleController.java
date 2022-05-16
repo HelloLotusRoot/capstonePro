@@ -54,12 +54,12 @@ public class ShuttleController {
 	@PostConstruct
 	public void init() { // 값 초기화
 		shuttleMap = new HashMap<String, Shuttle>();
-		shuttleMap.put("1", new Shuttle("1", "35.26776117458882", "129.08035439908352"));
-		shuttleMap.put("2", new Shuttle("2", "35.26922971980435", "129.07722740970405"));
-		shuttleMap.put("3", new Shuttle("3", "35.26915372204809", "129.07719250493824"));
-		shuttleMap.put("4", new Shuttle("4", "35.26722494629348", "129.0803571673331" ));
-		shuttleMap.put("5", new Shuttle("5", "35.27289419398142", "129.09257027925634"));
-		shuttleMap.put("6", new Shuttle("6", "35.26080393868117", "129.08822163293786"));
+		shuttleMap.put("1", new Shuttle("1", 35.26776117458882, 129.08035439908352));
+		shuttleMap.put("2", new Shuttle("2", 35.26922971980435, 129.07722740970405));
+		shuttleMap.put("3", new Shuttle("3", 35.26915372204809, 129.07719250493824));
+		shuttleMap.put("4", new Shuttle("4", 35.26722494629348, 129.0803571673331 ));
+		shuttleMap.put("5", new Shuttle("5", 35.27289419398142, 129.09257027925634));
+		shuttleMap.put("6", new Shuttle("6", 35.26080393868117, 129.08822163293786));
 	}
 	
 	@GetMapping(value = "/markers/shuttlebus/all")
