@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import java.sql.Date;
 
+import lombok.Builder;
+
 public class User_account {
 	
 	private int id_num;
@@ -20,6 +22,7 @@ public class User_account {
 		
 	}
 	
+	@Builder
 	public User_account(int id_num, String user_id, String name, String password, String phone, String nickname, String profile_img,
 			String mail, String bank, String account_num, Date entry_date) {
 		super();
