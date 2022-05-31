@@ -7,4 +7,4 @@
 * 빌드 : maven
 * 의존성 : Spring Web, Lombok, mybatis, tomcat, mysql, websocket
 * 데이터베이스 : MySQL
-* 형상관리 툴 :GitHub
+* 형상관리 툴 : GitHub
