@@ -38,6 +38,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.example.demo.exception.CustomException;
 import com.example.demo.exception.ErrorCode;
+import com.example.demo.model.Admin;
 import com.example.demo.model.Shuttle;
 //import com.fasterxml.jackson.core.JsonProcessingException;
 //import com.fasterxml.jackson.databind.JsonNode;
@@ -68,7 +69,7 @@ public class ShuttleController {
 	}
 	
 	@GetMapping(value = "/markers/shuttlebus/{busid}")
-	public Shuttle getUser_account(@PathVariable("busid") String busid) {
+	public Shuttle getShuttle(@PathVariable("busid") String busid) {
 		return shuttleMap.get(busid);
 	}
 	// @RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude
@@ -86,15 +87,29 @@ public class ShuttleController {
 			return shuttleMap.get(busid);
 	}
 
+	private Map<String, Admin> adminMap;
+	
+	@PostConstruct
+	public void init2() {
+		adminMap = new HashMap<String, Admin>();
+		adminMap.put("asd", new Admin("asd", "asd"));
+	}
+		
 	@PostMapping(value = "/admin/markers/shuttlebus")
-	public List<Shuttle> postAdminShuttle() {
-		shuttleMap.put("1", new Shuttle("1", 35.26776117458882, 129.08035439908352));
-		shuttleMap.put("2", new Shuttle("2", 35.26922971980435, 129.07722740970405));
-		shuttleMap.put("3", new Shuttle("3", 35.26915372204809, 129.07719250493824));
-		shuttleMap.put("4", new Shuttle("4", 35.26722494629348, 129.0803571673331 ));
-		shuttleMap.put("5", new Shuttle("5", 35.27289419398142, 129.09257027925634));
-		shuttleMap.put("6", new Shuttle("6", 35.26080393868117, 129.08822163293786));
-		return new ArrayList<Shuttle>(shuttleMap.values());
+	public List<Shuttle> postAdminShuttle(@RequestBody Admin admin) {
+		String id = admin.getId();
+		String pw = admin.getPw();
+		if(adminMap.containsKey(id) && adminMap.containsKey(pw)) {
+			shuttleMap.put("1", new Shuttle("1", 35.26776117458882, 129.08035439908352));
+			shuttleMap.put("2", new Shuttle("2", 35.26922971980435, 129.07722740970405));
+			shuttleMap.put("3", new Shuttle("3", 35.26915372204809, 129.07719250493824));
+			shuttleMap.put("4", new Shuttle("4", 35.26722494629348, 129.0803571673331 ));
+			shuttleMap.put("5", new Shuttle("5", 35.27289419398142, 129.09257027925634));
+			shuttleMap.put("6", new Shuttle("6", 35.26080393868117, 129.08822163293786));
+			return new ArrayList<Shuttle>(shuttleMap.values());
+		}	
+		else 
+			throw new CustomException(ErrorCode.DATA_NOT_FOUND); 
 	}
 	
 	@PutMapping(value = "/markers/shuttlebus/{busid}")
