@@ -58,6 +58,23 @@ public class ShuttleController {
 			return shuttleMap.get(busid);
 	}
 
+	@PutMapping(value = "/markers/shuttlebus/{busid}")
+	public Shuttle putShuttle(@PathVariable("busid") String busid, @RequestBody Shuttle shuttleUpdate) {
+			if(shuttleMap.containsKey(busid)) {
+				shuttleMap.replace(busid, shuttleUpdate);
+				return shuttleMap.get(busid);
+			}
+			else 
+				throw new CustomException(ErrorCode.DATA_NOT_FOUND); 
+	}
+	
+	@DeleteMapping(value = "/markers/shuttlebus/{busid}")
+	public Shuttle deleteShuttle(@PathVariable("busid") String busid) {
+		Shuttle shuttleDelete = shuttleMap.get(busid);
+		shuttleMap.remove(busid);
+		return shuttleDelete;
+	}
+	
 	private Map<String, Admin> adminMap;
 	
 	@PostConstruct
@@ -83,21 +100,31 @@ public class ShuttleController {
 			throw new CustomException(ErrorCode.DATA_NOT_FOUND); 
 	}
 	
-	@PutMapping(value = "/markers/shuttlebus/{busid}")
-	public Shuttle putShuttle(@PathVariable("busid") String busid, @RequestBody Shuttle shuttleUpdate) {
-			if(shuttleMap.containsKey(busid)) {
-				shuttleMap.replace(busid, shuttleUpdate);
-				return shuttleMap.get(busid);
-			}
-			else 
-				throw new CustomException(ErrorCode.DATA_NOT_FOUND); 
+	@GetMapping(value = "/admins/all")
+	public List<Admin> getAdminList() {
+		return new ArrayList<Admin>(adminMap.values()); 
 	}
 	
-	@DeleteMapping(value = "/markers/shuttlebus/{busid}")
-	public Shuttle deleteShuttle(@PathVariable("busid") String busid) {
-		Shuttle shuttleDelete = shuttleMap.get(busid);
-		shuttleMap.remove(busid);
-		return shuttleDelete;
+	@GetMapping(value = "/admins/{id}")
+	public Admin getAdmin(@PathVariable("id") String id) {
+		return adminMap.get(id);
+	}
+	
+	@PostMapping(value = "/admins")
+	public void postAdmin(@RequestBody Admin adminInsert) {
+		String insertId = adminInsert.getId();
+		adminMap.put(insertId, adminInsert);
+	}
+	
+	@PutMapping(value = "/admins/{id}")
+	public void putAdmin(@PathVariable("id") String id, @RequestBody String pwUpdate) {
+		Admin admin = adminMap.get(id);
+		admin.setPw(pwUpdate);
+	}
+	
+	@DeleteMapping(value = "/admins/{id}")
+	public void deleteAdmin(@PathVariable("id") String id) {
+		adminMap.remove(id);
 	}
 	
 }
