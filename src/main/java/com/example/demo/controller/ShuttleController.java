@@ -29,12 +29,6 @@ public class ShuttleController {
 	@PostConstruct
 	public void init() { // 값 초기화
 		shuttleMap = new HashMap<String, Shuttle>();
-		shuttleMap.put("1", new Shuttle("1", 35.26922971980435, 129.07722740970405));
-		shuttleMap.put("2", new Shuttle("2", 35.267440, 129.080313));
-		shuttleMap.put("3", new Shuttle("3", 35.269965, 129.085234));
-		shuttleMap.put("4", new Shuttle("4", 35.265227, 129.092253 ));
-		shuttleMap.put("5", new Shuttle("5", 35.27289419398142, 129.09257027925634));
-		shuttleMap.put("6", new Shuttle("6", 35.261129, 129.087117));
 	}
 	
 	@GetMapping(value = "/markers/shuttlebus/all")
