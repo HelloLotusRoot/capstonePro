@@ -2,7 +2,7 @@
 부산외국어대학교 컴퓨터공학과 캡스톤디자인 수업에서 제작된 교내 셔틀버스의 위치를 실시간으로 확인할 수 있는 지도 PWA입니다
 https://github.com/kmseonhwa/live-shuttle-map-client README 참고
 
-
+(백엔드)
 ## 기술스택
 * 개발언어 : Java 17
 * 개발환경 : SpringBoot 2.6.4
